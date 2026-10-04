@@ -1,13 +1,17 @@
 ---
 import { getCollection } from "astro:content";
 
+import Layout from "#layouts/Layout.astro";
+
 const tags = await getCollection("tags");
 ---
 
-<ul>
-    {tags.map((tag) => (
-        <li>
-            <a href={`/blog/tags/${tag.id}`}>{tag.data.name}</a>
-        </li>
-    ))}
-</ul>
+<Layout>
+    <ul>
+        {tags.map((tag) => (
+            <li>
+                <a href={`/blog/tags/${tag.id}`}>{tag.data.name}</a>
+            </li>
+        ))}
+    </ul>
+</Layout>

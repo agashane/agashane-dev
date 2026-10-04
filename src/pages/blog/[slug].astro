@@ -4,6 +4,8 @@ import { getEntries } from "astro:content";
 import { render } from "astro:content";
 import { getCollection } from "astro:content";
 
+import Layout from "#layouts/Layout.astro";
+
 export const getStaticPaths = (async () => {
     const posts = await getCollection("blog");
 
@@ -20,15 +22,17 @@ const tags = await getEntries(post.data.tags ?? []);
 const categories = await getEntries(post.data.categories ?? []);
 ---
 
-<h1>{post.data.title}</h1>
-<div>
-    {tags?.map((tag) => (
-        <a href={`/tags/${tag.id}`}>{tag.data.name}</a>
-    ))}
-</div>
-<div>
-    {categories?.map((category) => (
-        <a href={`/categories/${category.id}`}>{category.data.name}</a>
-    ))}
-</div>
-<Content />
+<Layout>
+    <h1>{post.data.title}</h1>
+    <div>
+        {tags?.map((tag) => (
+            <a href={`/tags/${tag.id}`}>{tag.data.name}</a>
+        ))}
+    </div>
+    <div>
+        {categories?.map((category) => (
+            <a href={`/categories/${category.id}`}>{category.data.name}</a>
+        ))}
+    </div>
+    <Content />
+</Layout>

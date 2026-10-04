@@ -6,6 +6,7 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "prepare": "panda codegen",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
@@ -14,6 +15,8 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.3.3",
+    "@pandacss/preset-base": "^2.1.1",
+    "@pandacss/preset-panda": "^2.1.1",
     "astro": "^7.3.5",
     "wrangler": "^4.147.0"
   },
@@ -28,6 +31,8 @@
     }
   },
   "devDependencies": {
-    "@astrojs/ts-plugin": "^1.10.12"
+    "@astrojs/ts-plugin": "^1.10.12",
+    "@pandacss/dev": "^2.1.1",
+    "@pandacss/vite": "^2.1.1"
   }
 }
