@@ -6,7 +6,19 @@ export default defineConfig({
   include: ["./src/**/*.{astro,js,ts}"],
   exclude: [],
   theme: {
-    extend: {},
+    extend: {
+      tokens: {
+        fonts: {
+          heading: { value: "var(--font-inclusive-sans), serif" },
+          body: { value: "var(--font-inclusive-sans), sans-serif" },
+        },
+      },
+    },
+  },
+  globalCss: {
+    html: {
+      "--global-font-body": "var(--font-inclusive-sans), sans-serif",
+    },
   },
   outdir: "styled-system",
 });
