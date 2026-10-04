@@ -5,6 +5,9 @@ import { render } from "astro:content";
 import { getCollection } from "astro:content";
 
 import Layout from "#layouts/Layout.astro";
+import { container } from "styled-system/patterns";
+import { prose } from "styled-system/recipes";
+import { css, cx } from "styled-system/css";
 
 export const getStaticPaths = (async () => {
     const posts = await getCollection("blog");
@@ -23,16 +26,30 @@ const categories = await getEntries(post.data.categories ?? []);
 ---
 
 <Layout>
-    <h1>{post.data.title}</h1>
-    <div>
-        {tags?.map((tag) => (
-            <a href={`/tags/${tag.id}`}>{tag.data.name}</a>
-        ))}
+    <div class={container()}>
+        <h1>{post.data.title}</h1>
+        <div>
+            {tags?.map((tag) => (
+                <a href={`/tags/${tag.id}`}>{tag.data.name}</a>
+            ))}
+        </div>
+        <div>
+            {categories?.map((category) => (
+                <a href={`/categories/${category.id}`}>{category.data.name}</a>
+            ))}
+        </div>
+        <article
+            class={cx(
+                prose({ size: { mdDown: "md", md: "lg" } }),
+                css({
+                    maxW: "2/3",
+                    mx: "auto",
+                    "--prose-leading": "1.5",
+                    "--prose-flow": "1em",
+                }),
+            )}
+        >
+            <Content />
+        </article>
     </div>
-    <div>
-        {categories?.map((category) => (
-            <a href={`/categories/${category.id}`}>{category.data.name}</a>
-        ))}
-    </div>
-    <Content />
 </Layout>

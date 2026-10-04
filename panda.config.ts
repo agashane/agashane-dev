@@ -1,7 +1,12 @@
 import { defineConfig } from "@pandacss/dev";
+import typographyPreset from "@pandacss/preset-typography";
 
 export default defineConfig({
-  presets: ["@pandacss/preset-base", "@pandacss/preset-panda"],
+  presets: [
+    "@pandacss/preset-base",
+    "@pandacss/preset-panda",
+    typographyPreset(),
+  ],
   preflight: true,
   include: ["./src/**/*.{astro,js,ts}"],
   exclude: [],
