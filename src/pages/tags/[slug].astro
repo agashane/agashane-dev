@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import { getEntry } from "astro:content";
+
+export const prerender = false;
+const tag = await getEntry("tags", Astro.params.slug!);
+
+const posts = await getCollection("blog", ({ data }) => {
+    return data.tags?.filter((tag) => tag.id === Astro.params.slug!);
+});
+---
+
+{!tag ? (
+    <p>The content is not found</p>
+) : (
+    <div>
+        <h1>{tag.data.name}</h1>
+        {posts.length > 0 ? <p>{posts.length} posts</p> : <p>No posts</p>}
+        {posts.length > 0 && (
+            <ul>
+                {posts.map((post) => (
+                    <li>
+                        <a href={`/blog/${post.data.slug}`}>
+                            {post.data.title}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        )}
+    </div>
+)}
