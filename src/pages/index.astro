@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 
 import Layout from "#layouts/Layout.astro";
+import * as Card from "#/components/ui/card";
 
 const allBlogPosts = await getCollection("blog");
 ---
@@ -10,7 +11,11 @@ const allBlogPosts = await getCollection("blog");
     <h1>Astro</h1>
     <div>
         {allBlogPosts.map((post) => (
-            <a href={`/blog/${post.data.slug}`}>{post.data.title}</a>
+            <Card.Root variant="outline">
+                <Card.Header>
+                    <Card.Title>{post.data.title}</Card.Title>
+                </Card.Header>
+            </Card.Root>
         ))}
     </div>
 </Layout>

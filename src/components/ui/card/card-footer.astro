@@ -1,0 +1,15 @@
+---
+import { css } from "styled-system/css";
+import type { HTMLAttributes } from "astro/types";
+
+import { card, type CardVariants } from "./card.recipe";
+
+type Props = HTMLAttributes<"div"> & CardVariants;
+
+const { variant, ...rest } = Astro.props;
+const classes = css(card.raw({ variant }).footer);
+---
+
+<div class={classes} {...rest}>
+    <slot />
+</div>

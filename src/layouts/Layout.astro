@@ -1,7 +1,10 @@
 ---
+import { container } from "styled-system/patterns";
 import "../index.css";
 
 import { Font } from "astro:assets";
+import { Header, Footer } from "../components/blocks";
+import { css } from "styled-system/css";
 ---
 
 <html lang="en">
@@ -15,6 +18,18 @@ import { Font } from "astro:assets";
         <title>Astro</title>
     </head>
     <body>
-        <slot />
+        <div
+            class={css({
+                minH: "100dvh",
+                display: "flex",
+                flexDir: "column",
+            })}
+        >
+            <Header />
+            <main class={container()}>
+                <slot />
+            </main>
+            <Footer />
+        </div>
     </body>
 </html>
