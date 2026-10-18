@@ -1,0 +1,13 @@
+---
+import { badge, type BadgeVariantProps } from "#styled-system/recipes/badge";
+import type { HTMLTag, Polymorphic } from "astro/types";
+
+type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & BadgeVariantProps;
+
+const { variant, size, pill, class: className, ...attrs } = Astro.props;
+const Tag = "href" in attrs ? "a" : "button";
+---
+
+<Tag class:list={[badge({ variant, size, pill }), className]} {...attrs}>
+    <slot />
+</Tag>

@@ -1,0 +1,23 @@
+---
+import { css } from "#styled-system/css/css";
+import {
+    breadcrumb,
+    type BreadcrumbVariantProps,
+} from "#styled-system/recipes/breadcrumb";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"span">, BreadcrumbVariantProps {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<span
+    data-slot="breadcrumb-ellipsis"
+    role="presentation"
+    aria-hidden="true"
+    class:list={[breadcrumb().ellipsis, className]}
+    {...attrs}
+>
+    <span>/</span>
+    <span class={css({ srOnly: true })}>More</span>
+</span>

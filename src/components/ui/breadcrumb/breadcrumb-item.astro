@@ -1,0 +1,20 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { css } from "#styled-system/css";
+import {
+    breadcrumb,
+    type BreadcrumbVariantProps,
+} from "#styled-system/recipes/breadcrumb";
+
+interface Props extends HTMLAttributes<"li">, BreadcrumbVariantProps {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<li
+    data-slot="breadcrumb-item"
+    class:list={[breadcrumb().item, className]}
+    {...attrs}
+>
+    <slot />
+</li>

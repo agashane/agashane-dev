@@ -4,7 +4,6 @@ import { default as CardBody } from "./card-body.astro";
 import { default as CardFooter } from "./card-footer.astro";
 import { default as CardTitle } from "./card-title.astro";
 import { default as CardDescription } from "./card-description.astro";
-import { card, type CardVariants } from "./card.recipe.ts";
 
 export {
   Card,
@@ -13,8 +12,6 @@ export {
   CardFooter,
   CardTitle,
   CardDescription,
-  card,
-  type CardVariants,
 
   //
   Card as Root,

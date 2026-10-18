@@ -1,14 +1,12 @@
 ---
-import { css } from "styled-system/css";
 import type { HTMLAttributes } from "astro/types";
-import { card, type CardVariants } from "./card.recipe";
+import { card, type CardVariantProps } from "#styled-system/recipes/card";
 
-type Props = HTMLAttributes<"div"> & CardVariants;
+interface Props extends HTMLAttributes<"div">, CardVariantProps {}
 
-const { variant, ...rest } = Astro.props;
-const classes = css(card.raw({ variant }).body);
+const { variant, class: className, ...attrs } = Astro.props;
 ---
 
-<div class={classes} {...rest}>
+<div class:list={[card({ variant }).body, className]} {...attrs}>
     <slot />
 </div>

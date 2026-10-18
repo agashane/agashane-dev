@@ -1,0 +1,12 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { text, type TextVariantProps } from "#styled-system/recipes/text";
+
+interface Props extends HTMLAttributes<"span">, TextVariantProps {}
+
+const { size, weight, muted, lead, class: className, ...attrs } = Astro.props;
+---
+
+<span class:list={[text({ size, weight, muted, lead }), className]} {...attrs}>
+    <slot />
+</span>

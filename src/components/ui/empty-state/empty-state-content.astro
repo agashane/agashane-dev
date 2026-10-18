@@ -1,0 +1,16 @@
+---
+import { emptyState } from "#styled-system/recipes/empty-state";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<div
+    data-slot="empty-state-content"
+    class:list={[emptyState().content, className]}
+    {...attrs}
+>
+    <slot />
+</div>

@@ -1,0 +1,15 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { navbar, type NavbarVariantProps } from "#styled-system/recipes/navbar";
+
+interface Props extends HTMLAttributes<"header">, NavbarVariantProps {}
+
+const { variant, position, boxed, class: className, ...attrs } = Astro.props;
+---
+
+<header
+    class:list={[navbar({ variant, position, boxed }).root, className]}
+    {...attrs}
+>
+    <slot />
+</header>

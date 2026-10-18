@@ -9,6 +9,7 @@
       "*": ["./*"],
       "#/*": ["./src/*"],
       "#layouts/*": ["./src/layouts/*"],
+      "#styled-system/*": ["./styled-system/*"],
     },
     "plugins": [
       {

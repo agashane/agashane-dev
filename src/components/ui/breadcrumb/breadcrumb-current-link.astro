@@ -1,0 +1,22 @@
+---
+import {
+    breadcrumb,
+    type BreadcrumbVariantProps,
+} from "#styled-system/recipes/breadcrumb";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"span">, BreadcrumbVariantProps {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<span
+    aria-current="page"
+    data-slot="breadcrumb-current-link"
+    aria-disabled="true"
+    role="link"
+    class:list={[breadcrumb().currentLink, className]}
+    {...attrs}
+>
+    <slot />
+</span>

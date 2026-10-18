@@ -2,11 +2,11 @@
 import type { ComponentProps } from "astro/types";
 import { Heading } from "../heading";
 
-type Props = ComponentProps<typeof Heading>;
+interface Props extends ComponentProps<typeof Heading> {}
 
-const { level = "h4", as = "h3", ...rest } = Astro.props;
+const { level = "h4", as = "h3", ...attrs } = Astro.props;
 ---
 
-<Heading level={level} as={as} {...rest}>
+<Heading level={level} as={as} {...attrs}>
     <slot />
 </Heading>

@@ -12,7 +12,7 @@ export default defineConfig({
       provider: fontProviders.fontsource(),
       name: "Inclusive Sans",
       cssVariable: "--font-inclusive-sans",
-      weights: ["300 900"],
+      weights: ["300 700"],
     },
   ],
   vite: {

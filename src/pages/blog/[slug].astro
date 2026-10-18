@@ -5,7 +5,7 @@ import { render } from "astro:content";
 import { getCollection } from "astro:content";
 
 import Layout from "#layouts/Layout.astro";
-import { prose } from "styled-system/recipes";
+import { Prose } from "#/components/ui/prose";
 import { css, cx } from "styled-system/css";
 
 export const getStaticPaths = (async () => {
@@ -36,17 +36,14 @@ const categories = await getEntries(post.data.categories ?? []);
             <a href={`/categories/${category.id}`}>{category.data.name}</a>
         ))}
     </div>
-    <article
-        class={cx(
-            prose({ size: { mdDown: "md", md: "lg" } }),
-            css({
-                maxW: "2/3",
-                mx: "auto",
-                "--prose-leading": "1.5",
-                "--prose-flow": "1em",
-            }),
-        )}
+    <Prose
+        class={css({
+            maxW: "2/3",
+            mx: "auto",
+            "--prose-leading": "1.5",
+            "--prose-flow": "1em",
+        })}
     >
         <Content />
-    </article>
+    </Prose>
 </Layout>
