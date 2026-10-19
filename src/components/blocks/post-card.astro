@@ -1,0 +1,76 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+import { linkOverlay, stack } from "#styled-system/patterns";
+import * as Card from "#/components/ui/card";
+import { Text } from "#/components/ui/text";
+import { Button } from "#/components/ui/button";
+import { css, cx } from "#styled-system/css";
+import { formatDate, getLangFromUrl, useTranslations } from "#/i18n/utils";
+
+interface Props {
+    post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Card.Root class={cx("group", css({ pos: "relative" }))}>
+    <Card.Body>
+        <div
+            class={stack({
+                smDown: {
+                    flexDir: "column",
+                    gap: "2",
+                    alignItems: "stretch",
+                    justifyContent: "start",
+                },
+                sm: {
+                    flexDir: "row",
+                    gap: "4",
+                    alignItems: "start",
+                    justifyContent: "stretch",
+                },
+            })}
+        >
+            <Text size="sm">
+                {formatDate(post.data.updatedAt, post.data.locale)}
+            </Text>
+
+            <div class={css({ flex: 1 })}>
+                <Card.Title
+                    class={css({
+                        maxW: { smDown: "full", sm: "4xl" },
+                    })}
+                >
+                    {post.data.title}
+                </Card.Title>
+                <Card.Description
+                    size="md"
+                    class={css({
+                        textWrap: "pretty",
+                        lineClamp: 2,
+                        maxW: { smDown: "full", sm: "4xl" },
+                    })}
+                >
+                    {post.data.excerpt}
+                </Card.Description>
+            </div>
+
+            <Button
+                href={getRelativeLocaleUrl(
+                    post.data.locale,
+                    `/articles/${post.data.slug}`,
+                )}
+                as="a"
+                class={cx(css({ alignSelf: "end" }), linkOverlay())}
+                variant="subtle"
+            >
+                {t("read_post")}
+            </Button>
+        </div>
+    </Card.Body>
+</Card.Root>

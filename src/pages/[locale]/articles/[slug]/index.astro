@@ -1,0 +1,58 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, getEntries, getEntry, render } from "astro:content";
+
+import Layout from "#layouts/Layout.astro";
+import { Heading } from "#/components/ui/heading";
+import { Prose } from "#/components/ui/prose";
+import { formatDate, getLangFromUrl, useTranslations } from "#/i18n/utils";
+import { css } from "#styled-system/css";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+export const getStaticPaths = (async () => {
+    const posts = (await getCollection("blog")).filter(
+        (post) => !post.data.isDraft && !!post.data.publishedAt,
+    );
+
+    return posts.map((post) => ({
+        params: { locale: post.data.locale, slug: post.data.slug },
+        props: { post },
+    }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+const tags = await getEntries(post.data.tags ?? []);
+const categories = await getEntries(post.data.categories ?? []);
+
+const translation = post.data.translation
+    ? await getEntry(post.data.translation)
+    : null;
+const relatedPosts = await getEntries(post.data.related ?? []);
+const { Content } = await render(post);
+---
+
+<Layout>
+    <div class={css({ spaceY: "8" })}>
+        <Heading>{post.data.title}</Heading>
+        <Prose
+            class={css({
+                mx: "auto",
+                maxW: "3xl",
+                "--prose-leading": "1.5",
+                "--prose-flow": "1em",
+            })}
+        >
+            <Content />
+        </Prose>
+
+        {relatedPosts.length > 0 && (
+            <div>
+                <Heading as="h3" level="h3">
+                    {t("related_posts")}
+                </Heading>
+            </div>
+        )}
+    </div>
+</Layout>

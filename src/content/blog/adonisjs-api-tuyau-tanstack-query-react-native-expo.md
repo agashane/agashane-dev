@@ -1,12 +1,14 @@
 ---
 title: "Building a Type-Safe Mobile App: AdonisJS API with Tuyau and TanStack Query in React Native Expo"
 slug: "adonisjs-api-tuyau-tanstack-query-react-native-expo"
-excerpt: Building a type-safe mobile app with AdonisJS API, Tuyau, and TanStack Query in React Native Expo.
-publishedAt: "2026-10-04"
+excerpt: "Building a type-safe mobile app with AdonisJS API, Tuyau, and TanStack Query in React Native Expo."
+createdAt: 2026-10-04T08:11:49.537Z
+publishedAt: 2026-10-04T20:45:21.324Z
+updatedAt: 2026-10-19T20:45:21.354Z
 tags: ["guide"]
+locale: "en"
+isDraft: false
 ---
-
-# Building a Type-Safe Mobile App: AdonisJS API with Tuyau and TanStack Query in React Native Expo
 
 **TL;DR:** In this post, you will learn how to connect a React Native Expo app to an AdonisJS v7 API using three tools that work very well together:
 

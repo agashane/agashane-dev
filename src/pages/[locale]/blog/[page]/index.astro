@@ -1,0 +1,54 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+import Layout from "#layouts/Layout.astro";
+import { languages } from "#/i18n/ui";
+import { getLangFromUrl, useTranslations } from "#/i18n/utils";
+import { Heading } from "#/components/ui/heading";
+import { PostCard } from "#/components/blocks";
+import { css } from "#styled-system/css";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+export const getStaticPaths = (async ({ paginate }) => {
+    const locales = Array.from(Object.keys(languages));
+    const blogPosts = await getCollection("blog");
+
+    return locales.flatMap((locale) => {
+        const posts = blogPosts
+            .filter((post) => post.data.locale === locale && !post.data.isDraft)
+            .sort(
+                (a, b) =>
+                    b.data.updatedAt.getTime() - a.data.updatedAt.getTime(),
+            );
+
+        return paginate(posts, {
+            pageSize: 2,
+            params: {
+                locale,
+            },
+        });
+    });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const { locale } = Astro.params;
+---
+
+<Layout>
+    <Heading as="h1" level="h1">
+        {t("nav:blog")}
+    </Heading>
+    {page.data.length <= 0 ? (
+        <p>No data</p>
+    ) : (
+        <div class={css({ spaceY: "2" })}>
+            {page.data.map((post) => (
+                <PostCard post={post} />
+            ))}
+        </div>
+    )}
+</Layout>

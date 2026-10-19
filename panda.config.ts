@@ -18,6 +18,7 @@ export default defineConfig({
         fonts: {
           heading: { value: "var(--font-inclusive-sans), serif" },
           body: { value: "var(--font-inclusive-sans), sans-serif" },
+          mono: { value: "var(--font-fragment-mono), monospace" },
         },
       },
     },
@@ -25,6 +26,7 @@ export default defineConfig({
   globalCss: {
     html: {
       "--global-font-body": "var(--font-inclusive-sans), sans-serif",
+      "--global-font-mono": "var(--font-fragment-mono), monospace",
       colorPalette: "slate",
     },
   },

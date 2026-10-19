@@ -15,6 +15,7 @@ import { css } from "styled-system/css";
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <Font cssVariable="--font-inclusive-sans" />
+        <Font cssVariable="--font-fragment-mono" />
         <title>Astro</title>
     </head>
     <body>
@@ -23,6 +24,7 @@ import { css } from "styled-system/css";
                 minH: "100dvh",
                 display: "flex",
                 flexDir: "column",
+                spaceY: { mdDown: "8", md: "16" },
             })}
         >
             <Header />

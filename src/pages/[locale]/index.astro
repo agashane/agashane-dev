@@ -1,0 +1,39 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+import Layout from "#layouts/Layout.astro";
+import * as Card from "#/components/ui/card";
+import { Badge } from "#/components/ui/badge";
+import { css } from "#styled-system/css/css";
+import { linkOverlay } from "#styled-system/patterns/link-overlay";
+import { languages } from "#/i18n/ui";
+import { getLangFromUrl, useTranslations } from "#/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+export const getStaticPaths = (() => {
+    return [{ params: { locale: "en" } }, { params: { locale: "fr" } }];
+}) satisfies GetStaticPaths;
+
+const { locale } = Astro.params;
+---
+
+<Layout>
+    <h1>Astro</h1>
+    <div>
+        <ul>
+            <li>
+                <a href={getRelativeLocaleUrl(locale, "")}>{t("nav:home")}</a>
+                <a href={getRelativeLocaleUrl(locale, "blog/1")}>
+                    {t("nav:blog")}
+                </a>
+                <a href={getRelativeLocaleUrl(locale, "contact")}>
+                    {t("nav:contact")}
+                </a>
+            </li>
+        </ul>
+    </div>
+</Layout>

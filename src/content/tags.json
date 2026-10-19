@@ -1,3 +1,14 @@
 {
-  "guide": { "name": "Guide" }
+  "guide": {
+    "name": {
+      "en": "Guide",
+      "fr": "Guide"
+    }
+  },
+  "tips": {
+    "name": {
+      "en": "Tips",
+      "fr": "Astuces"
+    }
+  }
 }

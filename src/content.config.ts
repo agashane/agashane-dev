@@ -8,17 +8,22 @@ const blog = defineCollection({
     title: z.string(),
     slug: z.string(),
     excerpt: z.string(),
-    publishedAt: z.coerce.date(),
-    updatedAt: z.coerce.date().optional(),
+    publishedAt: z.coerce.date().optional(),
+    updatedAt: z.coerce.date(),
+    createdAt: z.coerce.date(),
     tags: z.array(reference("tags")).optional(),
     categories: z.array(reference("categories")).optional(),
+    translation: reference("blog").optional(),
+    related: z.array(reference("blog")).optional(),
+    locale: z.string().default("en"),
+    isDraft: z.boolean().optional().default(true),
   }),
 });
 
 const tags = defineCollection({
   loader: file("./src/content/tags.json"),
   schema: z.object({
-    name: z.string(),
+    name: z.record(z.string(), z.string()),
   }),
 });
 

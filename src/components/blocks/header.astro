@@ -1,7 +1,19 @@
 ---
-import { hstack } from "styled-system/patterns";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import * as Navbar from "#/components/ui/navbar";
+import { getLangFromUrl, useTranslations } from "#/i18n/utils";
+import { css } from "#styled-system/css";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
-<header class={hstack()}>
-    <a href="/">Agashane</a>
-</header>
+<Navbar.Root class={css({ zIndex: 10000 })} boxed>
+    <Navbar.Start>
+        <a href={getRelativeLocaleUrl(lang)}>Agashane</a>
+    </Navbar.Start>
+    <Navbar.Content />
+    <Navbar.End>
+        <a href={getRelativeLocaleUrl(lang, "blog/1")}>{t("nav:blog")}</a>
+    </Navbar.End>
+</Navbar.Root>
