@@ -1,39 +1,74 @@
 ---
 import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
-import { getRelativeLocaleUrl } from "astro:i18n";
+import type { CollectionEntry } from "astro:content";
 
 import Layout from "#layouts/Layout.astro";
-import * as Card from "#/components/ui/card";
-import { Badge } from "#/components/ui/badge";
+import { Heading } from "#/components/ui/heading";
+import { PostCard } from "#/components/blocks";
 import { css } from "#styled-system/css/css";
-import { linkOverlay } from "#styled-system/patterns/link-overlay";
 import { languages } from "#/i18n/ui";
 import { getLangFromUrl, useTranslations } from "#/i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-export const getStaticPaths = (() => {
-    return [{ params: { locale: "en" } }, { params: { locale: "fr" } }];
+export const getStaticPaths = (async () => {
+    const locales = Array.from(Object.keys(languages));
+    const posts = await getCollection("blog");
+    const allTags = await getCollection("tags");
+
+    return locales.map((locale) => {
+        const filteredPosts = posts
+            .filter(
+                (post) =>
+                    !post.data.isDraft &&
+                    !!post.data.publishedAt &&
+                    post.data.locale === locale,
+            )
+            .sort(
+                (a, b) =>
+                    b.data.updatedAt.getTime() - a.data.updatedAt.getTime(),
+            )
+            .slice(0, 3);
+
+        const taggedPosts = filteredPosts.map((post) => {
+            const tags: Array<CollectionEntry<"tags">> = [];
+
+            post.data.tags?.map((tag) => {
+                allTags.map((t) => {
+                    if (tag.id === t.id) tags.push(t);
+                });
+            });
+
+            return {
+                post,
+                tags,
+            };
+        });
+
+        return {
+            params: { locale },
+            props: { items: taggedPosts },
+        };
+    });
 }) satisfies GetStaticPaths;
 
-const { locale } = Astro.params;
+const { items } = Astro.props;
+console.log(`Items: ${items.length}`);
 ---
 
 <Layout>
-    <h1>Astro</h1>
-    <div>
-        <ul>
-            <li>
-                <a href={getRelativeLocaleUrl(locale, "")}>{t("nav:home")}</a>
-                <a href={getRelativeLocaleUrl(locale, "blog/1")}>
-                    {t("nav:blog")}
-                </a>
-                <a href={getRelativeLocaleUrl(locale, "contact")}>
-                    {t("nav:contact")}
-                </a>
-            </li>
-        </ul>
+    <div class={css({ spaceY: "8" })}>
+        <div class={css({ spaceY: "4" })}>
+            <Heading as="h2" level="h3">
+                {t("latest_blog")}
+            </Heading>
+            <div class={css({ spaceY: "2" })}>
+                {items.map((item) => (
+                    <PostCard post={item.post} tags={item.tags} />
+                ))}
+            </div>
+        </div>
     </div>
 </Layout>

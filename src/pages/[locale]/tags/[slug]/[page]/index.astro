@@ -1,0 +1,82 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+
+import Layout from "#layouts/Layout.astro";
+import { css } from "#styled-system/css";
+import { Heading } from "#/components/ui/heading";
+import { Button } from "#/components/ui/button";
+import { PostCard } from "#/components/blocks";
+import { languages } from "#/i18n/ui";
+import { getLangFromUrl, useTranslations } from "#/i18n/utils";
+import { hstack } from "#styled-system/patterns/hstack";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+export const getStaticPaths = (async ({ paginate }) => {
+    const locales = Array.from(Object.keys(languages));
+    const tags = await getCollection("tags");
+    const posts = await getCollection("blog");
+
+    return locales.flatMap((locale) => {
+        return tags.flatMap((tag) => {
+            const filteredPosts = posts.filter(
+                (post) =>
+                    !post.data.isDraft &&
+                    !!post.data.publishedAt &&
+                    post.data.locale === locale &&
+                    post.data.tags?.map((tag) => tag.id).includes(tag.id),
+            );
+
+            return paginate(filteredPosts, {
+                pageSize: 12,
+                params: { locale, slug: tag.id },
+                props: { tag },
+            });
+        });
+    });
+}) satisfies GetStaticPaths;
+
+const { page, tag } = Astro.props;
+const { locale } = Astro.params;
+---
+
+<Layout>
+    <div class={css({ spaceY: "8" })}>
+        <Heading as="h1" level="h1">
+            {tag.data.name[locale]}
+        </Heading>
+
+        {page.data.length <= 0 ? (
+            <p>No data</p>
+        ) : (
+            <div class={css({ spaceY: "2" })}>
+                {page.data.map((item) => (
+                    <PostCard post={item} tags={[tag]} />
+                ))}
+            </div>
+        )}
+
+        {page.data.length > 0 && (
+            <div
+                class={hstack({
+                    alignItems: "center",
+                    justify: "end",
+                    gap: "2",
+                })}
+            >
+                {page.url.prev && (
+                    <Button as="a" href={page.url.prev} variant="subtle">
+                        {t("prev")}
+                    </Button>
+                )}
+                {page.url.next && (
+                    <Button as="a" href={page.url.next} variant="subtle">
+                        {t("next")}
+                    </Button>
+                )}
+            </div>
+        )}
+    </div>
+</Layout>

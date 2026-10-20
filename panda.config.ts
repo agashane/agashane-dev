@@ -16,9 +16,14 @@ export default defineConfig({
     extend: {
       tokens: {
         fonts: {
-          heading: { value: "var(--font-inclusive-sans), serif" },
+          heading: { value: "var(--font-fragment-mono), serif" },
           body: { value: "var(--font-inclusive-sans), sans-serif" },
           mono: { value: "var(--font-fragment-mono), monospace" },
+        },
+      },
+      semanticTokens: {
+        radii: {
+          radius: { value: "{radii.sm}" },
         },
       },
     },

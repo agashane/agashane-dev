@@ -12,7 +12,7 @@ import { css } from "styled-system/css";
         <meta charset="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="generator" content={Astro.generator} />
         <Font cssVariable="--font-inclusive-sans" />
         <Font cssVariable="--font-fragment-mono" />
@@ -22,8 +22,6 @@ import { css } from "styled-system/css";
         <div
             class={css({
                 minH: "100dvh",
-                display: "flex",
-                flexDir: "column",
                 spaceY: { mdDown: "8", md: "16" },
             })}
         >

@@ -1,5 +1,51 @@
 ---
-import { box } from "styled-system/patterns";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+import { hstack, stack } from "#styled-system/patterns";
+import { getLangFromUrl, useTranslations } from "#/i18n/utils";
+import { Button } from "#/components/ui/button";
+import { Text } from "#/components/ui/text";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
-<footer class={box()}>Footer</footer>
+<footer
+    class={stack({
+        flexDir: "column",
+        alignItems: "safe center",
+        justifyContent: "safe center",
+        colorPalette: "current",
+        bgColor: "colorPalette.muted",
+        rounded: "radius",
+        m: "2",
+        py: "4",
+        gap: "4",
+    })}
+>
+    <nav
+        class={hstack({
+            gap: "2",
+            alignItems: "safe center",
+            justify: "safe center",
+        })}
+    >
+        <Button variant="ghost" as="a" href={getRelativeLocaleUrl(lang, "")}>
+            {t("nav:home")}
+        </Button>
+        <Button
+            variant="ghost"
+            as="a"
+            href={getRelativeLocaleUrl(lang, "/blog/1")}
+        >
+            {t("nav:blog")}
+        </Button>
+        <Button
+            variant="ghost"
+            as="a"
+            href={getRelativeLocaleUrl(lang, "/contact")}
+        >
+            {t("nav:contact")}
+        </Button>
+    </nav>
+</footer>

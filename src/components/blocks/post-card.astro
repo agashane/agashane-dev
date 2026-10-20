@@ -2,23 +2,25 @@
 import type { CollectionEntry } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
-import { linkOverlay, stack } from "#styled-system/patterns";
+import { hstack, linkOverlay, stack } from "#styled-system/patterns";
 import * as Card from "#/components/ui/card";
 import { Text } from "#/components/ui/text";
 import { Button } from "#/components/ui/button";
+import { Badge } from "#/components/ui/badge";
 import { css, cx } from "#styled-system/css";
 import { formatDate, getLangFromUrl, useTranslations } from "#/i18n/utils";
 
 interface Props {
     post: CollectionEntry<"blog">;
+    tags: Array<CollectionEntry<"tags">>;
 }
 
-const { post } = Astro.props;
+const { post, tags } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<Card.Root class={cx("group", css({ pos: "relative" }))}>
+<Card.Root>
     <Card.Body>
         <div
             class={stack({
@@ -40,24 +42,36 @@ const t = useTranslations(lang);
                 {formatDate(post.data.updatedAt, post.data.locale)}
             </Text>
 
-            <div class={css({ flex: 1 })}>
+            <div class={css({ flex: 1, spaceY: "2" })}>
                 <Card.Title
                     class={css({
                         maxW: { smDown: "full", sm: "4xl" },
                     })}
                 >
-                    {post.data.title}
+                    <a
+                        href={getRelativeLocaleUrl(
+                            post.data.locale,
+                            `/articles/${post.data.slug}`,
+                        )}
+                    >
+                        {post.data.title}
+                    </a>
                 </Card.Title>
-                <Card.Description
-                    size="md"
-                    class={css({
-                        textWrap: "pretty",
-                        lineClamp: 2,
-                        maxW: { smDown: "full", sm: "4xl" },
-                    })}
-                >
-                    {post.data.excerpt}
-                </Card.Description>
+                {tags.length > 0 && (
+                    <div class={hstack({ gap: "2" })}>
+                        {tags.map((tag) => (
+                            <Badge
+                                as="a"
+                                href={getRelativeLocaleUrl(
+                                    post.data.locale,
+                                    `/tags/${tag.id}/1`,
+                                )}
+                            >
+                                #{tag.data.name[lang].toLocaleLowerCase()}
+                            </Badge>
+                        ))}
+                    </div>
+                )}
             </div>
 
             <Button
@@ -66,7 +80,7 @@ const t = useTranslations(lang);
                     `/articles/${post.data.slug}`,
                 )}
                 as="a"
-                class={cx(css({ alignSelf: "end" }), linkOverlay())}
+                class={cx(css({ alignSelf: "end" }))}
                 variant="subtle"
             >
                 {t("read_post")}

@@ -1,12 +1,17 @@
 ---
 import type { GetStaticPaths } from "astro";
 import { getCollection, getEntries, getEntry, render } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 import Layout from "#layouts/Layout.astro";
 import { Heading } from "#/components/ui/heading";
 import { Prose } from "#/components/ui/prose";
+import { Badge } from "#/components/ui/badge";
+import { Button } from "#/components/ui/button";
+import { Text } from "#/components/ui/text";
 import { formatDate, getLangFromUrl, useTranslations } from "#/i18n/utils";
 import { css } from "#styled-system/css";
+import { hstack, vstack } from "#styled-system/patterns";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -34,12 +39,57 @@ const { Content } = await render(post);
 ---
 
 <Layout>
-    <div class={css({ spaceY: "8" })}>
-        <Heading>{post.data.title}</Heading>
+    <div class={css({ spaceY: "8", maxW: "4xl", mx: "auto" })}>
+        <div class={css({ spaceY: "2" })}>
+            <Button
+                as="a"
+                href={getRelativeLocaleUrl(post.data.locale, "/blog/1")}
+                variant="ghost"
+            >
+                {t("latest_blog")}
+            </Button>
+            <Heading as="h1" level="h2">
+                {post.data.title}
+            </Heading>
+        </div>
+        <div class={vstack({ gap: "2", alignItems: "stretch" })}>
+            <Text size="lg" class={css({ colorPalette: "fg" })} muted>
+                {post.data.excerpt}
+            </Text>
+            <div
+                class={hstack({
+                    gap: "2",
+                    flexWrap: "wrap",
+                    alignItems: "safe center",
+                })}
+            >
+                <Text
+                    class={css({
+                        colorPalette: "fg",
+                        me: "4",
+                    })}
+                    muted
+                >
+                    {formatDate(post.data.updatedAt)}
+                </Text>
+                {tags.map((tag) => (
+                    <Badge
+                        as="a"
+                        href={getRelativeLocaleUrl(
+                            post.data.locale,
+                            `/tags/${tag.id}/1`,
+                        )}
+                        variant="subtle"
+                        size="lg"
+                    >
+                        #{tag.data.name[post.data.locale].toLocaleLowerCase()}
+                    </Badge>
+                ))}
+            </div>
+        </div>
         <Prose
             class={css({
-                mx: "auto",
-                maxW: "3xl",
+                maxW: "full",
                 "--prose-leading": "1.5",
                 "--prose-flow": "1em",
             })}
