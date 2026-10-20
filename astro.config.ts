@@ -16,6 +16,9 @@ export default defineConfig({
       redirectToDefaultLocale: true,
     },
   },
+  redirects: {
+    "/": "/en/"
+  },
   fonts: [
     {
       provider: fontProviders.fontsource(),
