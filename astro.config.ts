@@ -8,6 +8,8 @@ import iconset from "astro-iconset";
 
 import sitemap from "@astrojs/sitemap";
 
+import aeo from "astro-aeo";
+
 // @ts-expect-error
 const { PUBLIC_WEBSITE_URL } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
@@ -49,18 +51,15 @@ export default defineConfig({
     plugins: [pandacss()],
   },
 
-  integrations: [
-    sitemap({
-      i18n: {
-        defaultLocale: "en",
-        locales: {
-          en: "en-US",
-          fr: "fr-FR",
-        },
+  integrations: [sitemap({
+    i18n: {
+      defaultLocale: "en",
+      locales: {
+        en: "en-US",
+        fr: "fr-FR",
       },
-    }),
-    iconset(),
-  ],
+    },
+  }), iconset(), aeo()],
 
   session: false,
 });

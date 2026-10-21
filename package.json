@@ -18,6 +18,7 @@
     "@astrojs/sitemap": "^3.7.4",
     "@okapi-ui/panda-preset": "^0.1.0",
     "astro": "^7.3.5",
+    "astro-aeo": "^1.6.1",
     "astro-iconset": "^0.0.6",
     "astro-seo": "^1.2.0",
     "wrangler": "^4.147.0"
