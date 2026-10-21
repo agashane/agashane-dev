@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from "astro";
 import { getCollection, getEntries, getEntry, render } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { Icon } from "astro-iconset/components";
 
 import Layout from "#layouts/Layout.astro";
 import { Heading } from "#/components/ui/heading";
@@ -10,8 +11,9 @@ import { Badge } from "#/components/ui/badge";
 import { Button } from "#/components/ui/button";
 import { Text } from "#/components/ui/text";
 import { formatDate, getLangFromUrl, useTranslations } from "#/i18n/utils";
-import { css } from "#styled-system/css";
+import { css, cx } from "#styled-system/css";
 import { hstack, vstack } from "#styled-system/patterns";
+import { prose } from "#styled-system/recipes";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -38,22 +40,38 @@ const relatedPosts = await getEntries(post.data.related ?? []);
 const { Content } = await render(post);
 ---
 
-<Layout>
-    <div class={css({ spaceY: "8", maxW: "4xl", mx: "auto" })}>
+<Layout title={post.data.title} description={post.data.excerpt}>
+    <div class={css({ spaceY: "8" })}>
         <div class={css({ spaceY: "2" })}>
             <Button
                 as="a"
                 href={getRelativeLocaleUrl(post.data.locale, "/blog/1")}
-                variant="ghost"
+                variant="outline"
             >
+                <Icon name="tabler:arrow-left" />
                 {t("latest_blog")}
             </Button>
             <Heading as="h1" level="h2">
                 {post.data.title}
             </Heading>
         </div>
-        <div class={vstack({ gap: "2", alignItems: "stretch" })}>
-            <Text size="lg" class={css({ colorPalette: "fg" })} muted>
+        <div
+            class={vstack({
+                gap: "2",
+                alignItems: "stretch",
+                borderBottomWidth: "1px",
+                borderColor: "border",
+                pb: { smDown: "6", sm: "12" },
+            })}
+        >
+            <Text
+                class={css({
+                    colorPalette: "fg",
+                    fontSize: { smDown: "xl", md: "2xl" },
+                    textWrap: "pretty",
+                })}
+                muted
+            >
                 {post.data.excerpt}
             </Text>
             <div
@@ -87,15 +105,22 @@ const { Content } = await render(post);
                 ))}
             </div>
         </div>
-        <Prose
-            class={css({
-                maxW: "full",
-                "--prose-leading": "1.5",
-                "--prose-flow": "1em",
-            })}
+
+        <article
+            class={cx(
+                prose({
+                    size: { smDown: "md", sm: "lg" },
+                }),
+                css({
+                    pt: { smDown: "6", sm: "12" },
+                    maxW: "full",
+                    "--prose-leading": "1.5",
+                    "--prose-flow": "1em",
+                }),
+            )}
         >
             <Content />
-        </Prose>
+        </article>
 
         {relatedPosts.length > 0 && (
             <div>

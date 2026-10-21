@@ -59,7 +59,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 const { page } = Astro.props;
 ---
 
-<Layout>
+<Layout title={t("blog:title")} description={t("blog:description")}>
     <div class={css({ spaceY: "8" })}>
         <Heading as="h1" level="h1">
             {t("nav:blog")}

@@ -15,8 +15,11 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.3.3",
+    "@astrojs/sitemap": "^3.7.4",
     "@okapi-ui/panda-preset": "^0.1.0",
     "astro": "^7.3.5",
+    "astro-iconset": "^0.0.6",
+    "astro-seo": "^1.2.0",
     "wrangler": "^4.147.0"
   },
   "allowScripts": {
@@ -31,11 +34,13 @@
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "^1.10.12",
+    "@iconify-json/tabler": "^1.2.42",
     "@pandacss/dev": "^2.1.1",
     "@pandacss/preset-base": "^2.1.1",
     "@pandacss/preset-panda": "^2.1.1",
     "@pandacss/preset-typography": "^2.2.0",
     "@pandacss/vite": "^2.1.1",
-    "jsrepo": "^3.8.1"
+    "jsrepo": "^3.8.1",
+    "vite": "^8.3.5"
   }
 }

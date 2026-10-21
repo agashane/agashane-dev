@@ -1,21 +1,35 @@
 ---
-import { container } from "styled-system/patterns";
 import "../index.css";
+
+import { SEO } from "astro-seo";
 
 import { Font } from "astro:assets";
 import { Header, Footer } from "../components/blocks";
-import { css } from "styled-system/css";
+import { container } from "#styled-system/patterns";
+import { css } from "#styled-system/css";
+import { getLangFromUrl } from "#/i18n/utils";
+
+interface Props {
+    title?: string;
+    description?: string;
+    creator?: string;
+}
+
+const lang = getLangFromUrl(Astro.url);
+const { title, description } = Astro.props;
 ---
 
-<html lang="en">
+<html lang={lang}>
     <head>
         <meta charset="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="sitemap" href="/sitemap-index.xml" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="generator" content={Astro.generator} />
         <Font cssVariable="--font-inclusive-sans" />
         <Font cssVariable="--font-fragment-mono" />
+        <SEO title={title} description={description} />
         <title>Astro</title>
     </head>
     <body>
@@ -26,7 +40,7 @@ import { css } from "styled-system/css";
             })}
         >
             <Header />
-            <main class={container()}>
+            <main class={container({ maxW: "4xl" })}>
                 <slot />
             </main>
             <Footer />

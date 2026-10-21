@@ -3,11 +3,20 @@ import { defineConfig, fontProviders } from "astro/config";
 
 import cloudflare from "@astrojs/cloudflare";
 import pandacss from "@pandacss/vite";
+import { loadEnv } from "vite";
+import iconset from "astro-iconset";
+
+import sitemap from "@astrojs/sitemap";
+
+// @ts-expect-error
+const { PUBLIC_WEBSITE_URL } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 // https://astro.build/config
 export default defineConfig({
+  site: PUBLIC_WEBSITE_URL,
   adapter: cloudflare(),
-  trailingSlash: "never",
+  trailingSlash: "always",
+
   i18n: {
     locales: ["en", "fr"],
     defaultLocale: "en",
@@ -16,9 +25,11 @@ export default defineConfig({
       redirectToDefaultLocale: true,
     },
   },
+
   redirects: {
-    "/": "/en/"
+    "/": "/en",
   },
+
   fonts: [
     {
       provider: fontProviders.fontsource(),
@@ -33,7 +44,23 @@ export default defineConfig({
       weights: ["400"],
     },
   ],
+
   vite: {
     plugins: [pandacss()],
   },
+
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: "en",
+        locales: {
+          en: "en-US",
+          fr: "fr-FR",
+        },
+      },
+    }),
+    iconset(),
+  ],
+
+  session: false,
 });

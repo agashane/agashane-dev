@@ -42,7 +42,7 @@ const { page, tag } = Astro.props;
 const { locale } = Astro.params;
 ---
 
-<Layout>
+<Layout title={tag.data.name[locale]}>
     <div class={css({ spaceY: "8" })}>
         <Heading as="h1" level="h1">
             {tag.data.name[locale]}

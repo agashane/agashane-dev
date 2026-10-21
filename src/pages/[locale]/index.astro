@@ -2,13 +2,18 @@
 import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import { Icon } from "astro-iconset/components";
 
 import Layout from "#layouts/Layout.astro";
 import { Heading } from "#/components/ui/heading";
+import { Text } from "#/components/ui/text";
+import { Button } from "#/components/ui/button";
+import { Badge } from "#/components/ui/badge";
 import { PostCard } from "#/components/blocks";
 import { css } from "#styled-system/css/css";
 import { languages } from "#/i18n/ui";
 import { getLangFromUrl, useTranslations } from "#/i18n/utils";
+import { hstack, stack } from "#styled-system/patterns";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -58,9 +63,133 @@ const { items } = Astro.props;
 console.log(`Items: ${items.length}`);
 ---
 
-<Layout>
+<Layout title={t("home:title")} description={t("home:description")}>
     <div class={css({ spaceY: "8" })}>
-        <div class={css({ spaceY: "4" })}>
+        <div class={css({ py: { smDown: "8", sm: "16" }, spaceY: "6" })}>
+            <Heading
+                as="h1"
+                level="h1"
+                class={css({
+                    lineHeight: "1.25",
+                    fontSize: { smDown: "3xl", sm: "5xl" },
+                })}
+            >
+                <Fragment set:html={t("home:hero-headline")} />
+            </Heading>
+            <Text
+                class={css({
+                    colorPalette: "fg",
+                    fontSize: { smDown: "xl", sm: "2xl" },
+                })}
+                muted
+            >
+                {t("home:hero-subheadline")}
+            </Text>
+
+            <div
+                class={stack({
+                    flexDir: { smDown: "column", sm: "row" },
+                    alignItems: "safe start",
+                    gap: "4",
+                })}
+            >
+                <Button as="a" href="https://wa.me/243851858485" size="lg">
+                    <Icon name="tabler:brand-whatsapp" />
+                    {t("get_in_touch")}
+                </Button>
+                <div class={hstack({ gap: "4" })}>
+                    <Button
+                        as="a"
+                        href="mailto:ir.antoineglorieux@gmail.com"
+                        variant="subtle"
+                        size="lg"
+                    >
+                        <Icon name="tabler:mail" />
+                        {t("mail_me")}
+                    </Button>
+                    <Button
+                        variant="subtle"
+                        size="lg"
+                        as="a"
+                        href="https://github.com/agashane"
+                    >
+                        <Icon name="tabler:brand-github" />
+                        GitHub
+                    </Button>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class={css({
+                spaceY: "6",
+                borderBlockWidth: "1px",
+                borderColor: "border",
+                py: { smDown: "8", sm: "16" },
+            })}
+        >
+            <Heading as="h2" level="h3">
+                {t("skills")}
+            </Heading>
+            <div class={hstack({ gap: "4", flexWrap: "wrap" })}>
+                <Badge size="lg" variant="subtle">
+                    AdonisJS
+                </Badge>
+                <Badge size="lg" variant="subtle">
+                    Typescript
+                </Badge>
+                <Badge size="lg" variant="subtle">
+                    React Router 8
+                </Badge>
+                <Badge size="lg" variant="subtle">
+                    Astro
+                </Badge>
+                <Badge size="lg" variant="subtle">
+                    Medusa
+                </Badge>
+                <Badge size="lg" variant="subtle">
+                    Panda CSS
+                </Badge>
+                <Badge size="lg" variant="subtle">
+                    React Native
+                </Badge>
+                <Badge size="lg" variant="subtle">
+                    Postgresql
+                </Badge>
+                <Badge size="lg" variant="subtle">
+                    Turso
+                </Badge>
+                <Badge size="lg" variant="subtle">
+                    Laravel
+                </Badge>
+                <Badge size="lg" variant="subtle">
+                    Hono
+                </Badge>
+                <Badge size="lg" variant="subtle">
+                    Cloudflare
+                </Badge>
+                <Badge size="lg" variant="subtle">
+                    Podman
+                </Badge>
+                <Badge size="lg" variant="subtle">
+                    Ubuntu
+                </Badge>
+                <Badge size="lg" variant="subtle">
+                    Helix Editor
+                </Badge>
+                <Badge size="lg" variant="subtle">
+                    Zed
+                </Badge>
+                <Badge size="lg" variant="subtle">
+                    WordPress
+                </Badge>
+                <Badge size="lg" variant="subtle">
+                    Graphql
+                </Badge>
+            </div>
+        </div>
+
+        <div class={css({ spaceY: "6", py: { smDown: "8", sm: "16" } })}>
             <Heading as="h2" level="h3">
                 {t("latest_blog")}
             </Heading>
