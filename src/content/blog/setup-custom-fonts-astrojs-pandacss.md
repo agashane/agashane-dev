@@ -5,7 +5,7 @@ excerpt: "Learn how to integrate custom fonts in Astro using PandaCSS. This guid
 createdAt: 2026-03-23T08:11:49.537Z
 updatedAt: 2026-03-23T08:11:49.537Z
 publishedAt: 2026-03-23T08:11:49.537Z
-tags: ["guide"]
+categories: ["guide"]
 locale: "en"
 isDraft: false
 ---

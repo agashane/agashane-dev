@@ -1,14 +1,26 @@
 {
-  "guide": {
+  "fix": {
     "name": {
-      "en": "Guide",
-      "fr": "Guide"
+      "en": "Fix",
+      "fr": "Fix"
     }
   },
-  "tips": {
+  "react-router": {
     "name": {
-      "en": "Tips",
-      "fr": "Astuces"
+      "en": "React Router",
+      "fr": "React Router"
+    }
+  },
+  "cloudflare": {
+    "name": {
+      "en": "Cloudflare",
+      "fr": "Cloudflare"
+    }
+  },
+  "workers": {
+    "name": {
+      "en": "Workers",
+      "fr": "Workers"
     }
   }
 }

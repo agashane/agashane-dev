@@ -5,7 +5,7 @@ excerpt: "Building a type-safe mobile app with AdonisJS API, Tuyau, and TanStack
 createdAt: 2026-10-04T08:11:49.537Z
 publishedAt: 2026-10-04T20:45:21.324Z
 updatedAt: 2026-10-19T20:45:21.354Z
-tags: ["guide"]
+categories: ["guide"]
 locale: "en"
 isDraft: false
 ---

@@ -30,7 +30,7 @@ const tags = defineCollection({
 const categories = defineCollection({
   loader: file("./src/content/categories.json"),
   schema: z.object({
-    name: z.string(),
+    name: z.record(z.string(), z.string()),
   }),
 });
 
