@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.3.3",
+    "@astrojs/partytown": "^2.1.9",
     "@astrojs/sitemap": "^3.7.4",
     "@okapi-ui/panda-preset": "^0.1.0",
     "astro": "^7.3.5",

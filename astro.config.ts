@@ -10,6 +10,8 @@ import sitemap from "@astrojs/sitemap";
 
 import aeo from "astro-aeo";
 
+import partytown from "@astrojs/partytown";
+
 // @ts-expect-error
 const { PUBLIC_WEBSITE_URL } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
@@ -51,15 +53,20 @@ export default defineConfig({
     plugins: [pandacss()],
   },
 
-  integrations: [sitemap({
-    i18n: {
-      defaultLocale: "en",
-      locales: {
-        en: "en-US",
-        fr: "fr-FR",
+  integrations: [
+    iconset(),
+    aeo(),
+    sitemap({
+      i18n: {
+        defaultLocale: "en",
+        locales: {
+          en: "en-US",
+          fr: "fr-FR",
+        },
       },
-    },
-  }), iconset(), aeo()],
+    }),
+    partytown(),
+  ],
 
   session: false,
 });

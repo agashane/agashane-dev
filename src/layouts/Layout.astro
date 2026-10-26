@@ -17,6 +17,7 @@ interface Props {
 
 const lang = getLangFromUrl(Astro.url);
 const { title, description } = Astro.props;
+const cfAnalyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN || "";
 ---
 
 <html lang={lang}>
@@ -46,4 +47,12 @@ const { title, description } = Astro.props;
             <Footer />
         </div>
     </body>
+
+    <!-- Cloudflare Web Analytics -->
+    <script
+        type="text/partytown"
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={`{"token": "${cfAnalyticsToken}"}`}
+    ></script>
+    <!-- End Cloudflare Web Analytics -->
 </html>
