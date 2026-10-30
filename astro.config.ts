@@ -65,7 +65,7 @@ export default defineConfig({
         },
       },
     }),
-    partytown(),
+    partytown({ config: { forward: ["dataLayer.push"] } }),
   ],
 
   session: false,
