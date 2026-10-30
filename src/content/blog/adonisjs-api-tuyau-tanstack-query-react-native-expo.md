@@ -7,7 +7,7 @@ publishedAt: 2026-10-04T20:45:21.324Z
 updatedAt: 2026-10-19T20:45:21.354Z
 categories: ["guide"]
 locale: "en"
-isDraft: false
+isDraft: true
 ---
 
 **TL;DR:** In this post, you will learn how to connect a React Native Expo app to an AdonisJS v7 API using three tools that work very well together:
