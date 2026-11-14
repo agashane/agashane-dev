@@ -10,8 +10,6 @@ import sitemap from "@astrojs/sitemap";
 
 import aeo from "astro-aeo";
 
-import partytown from "@astrojs/partytown";
-
 // @ts-expect-error
 const { PUBLIC_WEBSITE_URL } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
@@ -65,7 +63,6 @@ export default defineConfig({
         },
       },
     }),
-    partytown({ config: { forward: ["dataLayer.push"] } }),
   ],
 
   session: false,

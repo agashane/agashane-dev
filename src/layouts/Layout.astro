@@ -48,13 +48,12 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
             </main>
             <Footer />
         </div>
+        <!-- Cloudflare Web Analytics -->
+        <script
+            type="module"
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon={`{"token": "${cfAnalyticsToken}"}`}
+        ></script>
+        <!-- End Cloudflare Web Analytics -->
     </body>
-
-    <!-- Cloudflare Web Analytics -->
-    <script
-        type="text/partytown"
-        src="https://static.cloudflareinsights.com/beacon.min.js"
-        data-cf-beacon={`{"token": "${cfAnalyticsToken}"}`}
-    ></script>
-    <!-- End Cloudflare Web Analytics -->
 </html>
