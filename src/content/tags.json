@@ -35,7 +35,7 @@
       "fr": "PostgreSQL"
     }
   },
-  "lucidorm": {
+  "lucid": {
     "name": {
       "en": "Lucid",
       "fr": "Lucid"
