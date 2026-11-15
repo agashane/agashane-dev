@@ -167,13 +167,14 @@ table.string("id").primary();
 
 This works, but it is the wrong choice. Here is why the native `uuid` type is better:
 
-|                                                                                                                                                   | `uuid` column                      | `string` (varchar) column      |
-| ------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------------------------------ |
-| Storage                                                                                                                                           | 16 bytes, binary                   | 36 bytes minimum, text         |
-| Validation                                                                                                                                        | PostgreSQL rejects malformed UUIDs | Any string is accepted         |
-| Index size                                                                                                                                        | Smaller, faster comparisons        | Larger, string collation rules |
-| Ordering                                                                                                                                          | Natural byte ordering              | Text ordering                  |
-| In Lucid, a `uuid` column is generated as a TypeScript `string` in the `database/schema.ts` file, so your schema code looks identical either way. |
+|            | `uuid` column                      | `string` (varchar) column      |
+| ---------- | ---------------------------------- | ------------------------------ |
+| Storage    | 16 bytes, binary                   | 36 bytes minimum, text         |
+| Validation | PostgreSQL rejects malformed UUIDs | Any string is accepted         |
+| Index size | Smaller, faster comparisons        | Larger, string collation rules |
+| Ordering   | Natural byte ordering              | Text ordering                  |
+
+In Lucid, a `uuid` column is generated as a TypeScript `string` in the `database/schema.ts` file, so your schema code looks identical either way.
 
 **Rule of thumb:** use `table.uuid()` in migrations and `string` as the TypeScript type in your schemas. Reserve `table.string()` for cases where the column must also accept non-UUID values, which is rare.
 
