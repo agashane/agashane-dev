@@ -22,5 +22,23 @@
       "en": "Workers",
       "fr": "Workers"
     }
+  },
+  "adonisjs": {
+    "name": {
+      "en": "AdonisJS",
+      "fr": "AdonisJS"
+    }
+  },
+  "postgresql": {
+    "name": {
+      "en": "PostgreSQL",
+      "fr": "PostgreSQL"
+    }
+  },
+  "lucidorm": {
+    "name": {
+      "en": "Lucid",
+      "fr": "Lucid"
+    }
   }
 }
